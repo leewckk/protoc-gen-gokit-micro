@@ -1,0 +1,36 @@
+version : v1
+project : go-kit-micro-service
+
+# code generate config for layers
+layers :
+  - name : transport
+    grpc :
+      enable : true     # true, enable generate
+      replace : true    # true, new generate file will replace old files
+    http:
+      enable : true     # true, enable generate
+      replace : true    # true, new generate file will replace old files
+  - name : endpoint
+    grpc :
+      enable : true     # true, enable generate
+      replace : true    # true, new generate file will replace old files
+    http:
+      enable : true     # true, enable generate
+      replace : true    # true, new generate file will replace old files
+  - name : service
+    grpc :
+      enable : true     # true, enable generate
+      replace : true    # true, new generate file will replace old files
+    http:
+      enable : true     # true, enable generate
+      replace : true    # true, new generate file will replace old files
+  - name : client
+    grpc :
+      enable : true     # true, enable generate
+      replace : true    # true, new generate file will replace old files
+    http:
+      enable : true     # true, enable generate
+      replace : true    # true, new generate file will replace old files
+
+
+
