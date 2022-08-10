@@ -28,10 +28,9 @@ import (
 
 	"github.com/leewckk/protoc-gen-gokit-micro/common"
 
-	"github.com/leewckk/protoc-gen-gokit-micro/v1/client/gin"
-	"github.com/leewckk/protoc-gen-gokit-micro/v1/client/grpc"
 	"github.com/leewckk/protoc-gen-gokit-micro/v1/endpoint"
-	"github.com/leewckk/protoc-gen-gokit-micro/v1/service"
+	"github.com/leewckk/protoc-gen-gokit-micro/v1/transport/gin"
+	"github.com/leewckk/protoc-gen-gokit-micro/v1/transport/grpc"
 	"google.golang.org/protobuf/compiler/protogen"
 
 	clientgin "github.com/leewckk/protoc-gen-gokit-micro/v1/client/gin"
@@ -54,7 +53,7 @@ func NewGenerator(plugin *protogen.Plugin, options common.Options) *GeneratorV1 
 		g.generators = append(g.generators, clientgin.NewGenerator())
 		g.generators = append(g.generators, clientproto.NewGenerator())
 	} else if *options.TypeName == common.GENERATE_TYPE_NAME_SERVER {
-		g.generators = append(g.generators, service.NewGenerator())
+		// g.generators = append(g.generators, service.NewGenerator())
 		g.generators = append(g.generators, endpoint.NewGenerator())
 		g.generators = append(g.generators, grpc.NewGenerator(plugin))
 		g.generators = append(g.generators, gin.NewGenerator())

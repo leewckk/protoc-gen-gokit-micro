@@ -29,5 +29,6 @@ import (
 )
 
 func MiddleWareImporPath(options *common.Options) protogen.GoImportPath {
-	return protogen.GoImportPath(options.GetModName() + "/endpoint/middlewares")
+	return common.GokitServiceMiddlewares
+	// return protogen.GoImportPath(options.GetModName() + "/endpoint/middlewares")
 }

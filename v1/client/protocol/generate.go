@@ -23,6 +23,8 @@
 package protocol
 
 import (
+	"log"
+
 	"github.com/leewckk/protoc-gen-gokit-micro/common"
 	"google.golang.org/protobuf/compiler/protogen"
 )
@@ -44,6 +46,7 @@ func NewGenerator() *Generate {
 		generators: make([]Generator, 0, 0),
 	}
 	g.generators = append(g.generators, NewProtocol())
+	log.Printf("create client protocol generator, output path: %v", __subPath__)
 	return g
 }
 

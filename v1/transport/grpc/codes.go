@@ -138,16 +138,16 @@ func (this *Codes) generateDecodeRequest(fileUri string, file *protogen.File, gf
 			this.userStartBlock(serviceName, methodName), this.userEndBlock(serviceName, methodName))
 		if "" == userblock {
 			if len(method.Input.Fields) == 0 {
-				gfile.P("return &", common.GetPackagePath("service", string(file.GoPackageName), options).Ident(method.Input.GoIdent.GoName), "{}, nil")
+				gfile.P("return &", common.GetPackagePath("endpoint", string(file.GoPackageName), options).Ident(method.Input.GoIdent.GoName), "{}, nil")
 			} else {
 
 				destTypeImport := common.GetPBPackagePath(file, options)
 				gfile.P("if req, ok := request.(*", destTypeImport.Ident(method.Input.GoIdent.GoName), "); ok {")
-				gfile.P("r := ", common.GetPackagePath("service", string(file.GoPackageName), options).Ident(method.Input.GoIdent.GoName), "{}")
+				gfile.P("r := ", common.GetPackagePath("endpoint", string(file.GoPackageName), options).Ident(method.Input.GoIdent.GoName), "{}")
 
 				gfile.P("/// TODO")
 				for _, field := range method.Input.Fields {
-					this.assigin(file, gfile, "req.", "r.", common.GetPackagePath("service", string(file.GoPackageName), options), field, options, 0)
+					this.assigin(file, gfile, "req.", "r.", common.GetPackagePath("endpoint", string(file.GoPackageName), options), field, options, 0)
 				}
 				gfile.P("return &r, nil")
 				gfile.P("}")
@@ -192,7 +192,7 @@ func (this *Codes) generateEncodeResponse(fileUri string, file *protogen.File, g
 				gfile.P("return &", common.GetPBPackagePath(file, options).Ident(method.Output.GoIdent.GoName), "{}, nil")
 			} else {
 
-				destTypeImport := common.GetPackagePath("service", string(file.GoPackageName), options)
+				destTypeImport := common.GetPackagePath("endpoint", string(file.GoPackageName), options)
 				gfile.P("if response, ok := resp.(*", destTypeImport.Ident(method.Output.GoIdent.GoName), "); ok {")
 
 				gfile.P("r :=", common.GetPBPackagePath(file, options).Ident(method.Output.GoIdent.GoName), "{}")

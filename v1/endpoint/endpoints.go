@@ -25,7 +25,6 @@ package endpoint
 
 import (
 	"github.com/leewckk/protoc-gen-gokit-micro/common"
-	"github.com/leewckk/protoc-gen-gokit-micro/v1/service"
 	"google.golang.org/protobuf/compiler/protogen"
 )
 
@@ -51,12 +50,11 @@ func (this *Endpoints) generate(gfile *protogen.GeneratedFile, svc *protogen.Ser
 
 		endpointName := EndpointName(serviceName, method.GoName)
 		gfile.P("func ", endpointName,
-			"(s ", common.GetPackagePath("service", packageName, options).Ident(""),
-			service.GetServiceName(serviceName), " ) ", common.GoKitEndpoint.Ident("Endpoint"), "{")
+			" () ", common.GoKitEndpoint.Ident("Endpoint"), "{")
 		gfile.P("return ", MiddleWareImporPath(options).Ident(""), "InjectMiddleWares(func(ctx ", common.ContextPackage.Ident("Context"), " , request interface{}) (interface{} , error){")
 
-		gfile.P("if r, ok := request.(*", common.GetPackagePath("service", packageName, options).Ident(""), common.GenMessageName(method.Input), ");ok {")
-		gfile.P("return s.", method.GoName, "(ctx, r)")
+		gfile.P("if r, ok := request.(*", common.GenMessageName(method.Input), ");ok {")
+		gfile.P("return ", PrototypeProcName(svc, method), "(ctx, r)")
 		gfile.P("}")
 
 		gfile.P("return nil, ", common.FmtPackage.Ident("Errorf"), `("Error convert interface : %v", `, common.ReflectPackage.Ident(""), "TypeOf(request))")
@@ -71,6 +69,7 @@ func (this *Endpoints) generate(gfile *protogen.GeneratedFile, svc *protogen.Ser
 
 func (this *Endpoints) GenerateFile(gen *protogen.Plugin, file *protogen.File, gfile *protogen.GeneratedFile, options *common.Options) (*protogen.GeneratedFile, error) {
 
+	gfile.P("/// ENDPOINT MAKER")
 	packageName := string(file.GoPackageName)
 	for _, svc := range file.Services {
 		if err := this.generate(gfile, svc, packageName, options); nil != err {

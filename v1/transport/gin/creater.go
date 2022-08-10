@@ -27,7 +27,6 @@ import (
 
 	"github.com/leewckk/protoc-gen-gokit-micro/common"
 	"github.com/leewckk/protoc-gen-gokit-micro/v1/endpoint"
-	"github.com/leewckk/protoc-gen-gokit-micro/v1/service"
 	"google.golang.org/genproto/googleapis/api/annotations"
 	"google.golang.org/protobuf/compiler/protogen"
 	"google.golang.org/protobuf/proto"
@@ -54,9 +53,8 @@ func (this *CreaterFunc) GenerateFile(fileUri string, gen *protogen.Plugin, file
 	funcName := GetCreateTransportFuncName(svc.GoName)
 
 	gfile.P()
-	gfile.P("func ", funcName, "(svc ",
-		common.GetPackagePath("service", string(file.GoPackageName), options).Ident(service.GetServiceName(svc.GoName)),
-		",opts ...", GinHttpMiddlewareImportPath(options).Ident("ServerOption"), ") []*", GinHttpMiddlewareImportPath(options).Ident("RouterObject"), "{")
+	gfile.P("func ", funcName, "(",
+		"opts ...", GinHttpMiddlewareImportPath(options).Ident("ServerOption"), ") []*", GinHttpMiddlewareImportPath(options).Ident("RouterObject"), "{")
 	gfile.P()
 	gfile.P(`objects := make([]*`, GinHttpMiddlewareImportPath(options).Ident("RouterObject"), `, 0, 0)`)
 
@@ -73,10 +71,10 @@ func (this *CreaterFunc) GenerateFile(fileUri string, gen *protogen.Plugin, file
 						dec = decName + "GET"
 					}
 					gfile.P(`objects = append(objects,
-                     `, CommonImporPath(options).Ident("NewTransportObject"), `("`, methodName, `",
+                     `, GinHttpMiddlewareImportPath(options).Ident("NewTransportObject"), `("`, methodName, `",
                         "`, pattern, `",
                         `, GinHttpMiddlewareImportPath(options).Ident("NewServer"), `(`,
-						common.GetPackagePath("endpoint", string(file.GoPackageName), options).Ident(endpoint.EndpointName(svc.GoName, method.GoName)), `(svc),
+						common.GetPackagePath("endpoint", string(file.GoPackageName), options).Ident(endpoint.EndpointName(svc.GoName, method.GoName)), `(),
                             `, dec, `,
                             `, encName, `,
                             `, `opts...)))`)

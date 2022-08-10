@@ -25,7 +25,6 @@ package grpc
 import (
 	"github.com/leewckk/protoc-gen-gokit-micro/common"
 	"github.com/leewckk/protoc-gen-gokit-micro/v1/endpoint"
-	"github.com/leewckk/protoc-gen-gokit-micro/v1/service"
 	"google.golang.org/protobuf/compiler/protogen"
 )
 
@@ -50,12 +49,12 @@ func (this *CreaterFunc) GenerateFile(fileUri string, gen *protogen.Plugin, file
 	serviceName := GetTransportName(svc.GoName)
 	funcName := GetCreateTransportFuncName(svc.GoName)
 	gfile.P()
-	gfile.P("func ", funcName, "(svc ", common.GetPackagePath("service", string(file.GoPackageName), options).Ident(service.GetServiceName(svc.GoName)), ", opts ...", common.GoKitGRPC.Ident("ServerOption"), ") *", serviceName, "{")
+	gfile.P("func ", funcName, "(opts ...", common.GoKitGRPC.Ident("ServerOption"), ") *", serviceName, "{")
 	gfile.P()
 	gfile.P("var t ", serviceName)
 	for _, method := range svc.Methods {
 		gfile.P("t.", PrototypeMethodFieldName(method.GoName), " = ", common.GoKitGRPC.Ident("NewServer"), "(")
-		gfile.P(common.GetPackagePath("endpoint", string(file.GoPackageName), options).Ident(endpoint.EndpointName(svc.GoName, method.GoName)), "(svc), ")
+		gfile.P(common.GetPackagePath("endpoint", string(file.GoPackageName), options).Ident(endpoint.EndpointName(svc.GoName, method.GoName)), "(), ")
 		gfile.P(GetDecodeRequestName(svc.GoName, method.GoName), ", ")
 		gfile.P(GetEncodeResponseName(svc.GoName, method.GoName), " , ")
 		gfile.P("opts...,")

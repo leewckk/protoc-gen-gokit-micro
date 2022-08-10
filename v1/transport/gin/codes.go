@@ -99,7 +99,7 @@ func (this *Codes) generateDecodeRequest(fileUri string, file *protogen.File, gf
 			userblock := common.UserBlock(fileUri, serviceName, methodName,
 				this.userStartBlock(serviceName, methodName), this.userEndBlock(serviceName, methodName))
 			if "" == userblock {
-				gfile.P("var request ", common.GetPackagePath("service", string(file.GoPackageName), options).Ident(method.Input.GoIdent.GoName))
+				gfile.P("var request ", common.GetPackagePath("endpoint", string(file.GoPackageName), options).Ident(method.Input.GoIdent.GoName))
 				out()
 			} else {
 				gfile.P(userblock)

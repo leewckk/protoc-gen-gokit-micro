@@ -25,6 +25,7 @@
 package gin
 
 import (
+	"log"
 	"strings"
 
 	"github.com/leewckk/protoc-gen-gokit-micro/common"
@@ -58,6 +59,7 @@ func (this *Generate) ImportPaths(gfile *protogen.GeneratedFile) *protogen.Gener
 
 	gfile.QualifiedGoIdent(common.FmtPackage.Ident(""))
 	gfile.QualifiedGoIdent(common.HttpPackage.Ident(""))
+	log.Printf("create transport gin generator, output path: %v", __subPath__)
 	return gfile
 }
 
@@ -88,10 +90,11 @@ func (this *Generate) GenerateFile(gen *protogen.Plugin, file *protogen.File, op
 	return nil, nil
 }
 
-func CommonImporPath(options *common.Options) protogen.GoImportPath {
-	return protogen.GoImportPath(options.GetModName() + "/transport/gin/common")
-}
+// func CommonImporPath(options *common.Options) protogen.GoImportPath {
+// 	return protogen.GoImportPath(options.GetModName() + "/transport/gin/common")
+// }
 
 func GinHttpMiddlewareImportPath(options *common.Options) protogen.GoImportPath {
-	return protogen.GoImportPath(options.GetModName() + "/middlewares/transport/http/gin")
+	return common.GokitServiceTransportHttp
+	// return protogen.GoImportPath(options.GetModName() + "/middlewares/transport/http/gin")
 }

@@ -55,6 +55,18 @@ var (
 	ConsulAPIPackage     = protogen.GoImportPath("github.com/hashicorp/consul/api")
 )
 
+//// FOR GO-KIT SERVICE
+var (
+	GokitServiceDiscovery     = protogen.GoImportPath("github.com/leewckk/go-kit-micro-service/discovery")
+	GokitServiceMiddlewares   = protogen.GoImportPath("github.com/leewckk/go-kit-micro-service/middlewares")
+	GokitServiceRateLimit     = protogen.GoImportPath("github.com/leewckk/go-kit-micro-service/middlewares/endpoint/ratelimit")
+	GokitServiceTracingGin    = protogen.GoImportPath("github.com/leewckk/go-kit-micro-service/middlewares/tracing/gin")
+	GokitServiceTracingReport = protogen.GoImportPath("github.com/leewckk/go-kit-micro-service/middlewares/tracing/report")
+	GokitServiceTransportHttp = protogen.GoImportPath("github.com/leewckk/go-kit-micro-service/middlewares/transport/http")
+	GokitServiceGORMStd       = protogen.GoImportPath("github.com/leewckk/go-kit-micro-service/orm/gorm")
+	GokitServiceUtils         = protogen.GoImportPath("github.com/leewckk/go-kit-micro-service/utils")
+)
+
 /// FOR GIN
 var (
 	GinPackage = protogen.GoImportPath("github.com/gin-gonic/gin")
