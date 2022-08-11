@@ -30,7 +30,7 @@ import (
 func GetAllInportPath(options *common.Options) []protogen.GoImportPath {
 	imports := make([]protogen.GoImportPath, 0, 0)
 
-	imports = append(imports, protogen.GoImportPath(options.GetModName()+"/invoker/http/common"))
+	// imports = append(imports, protogen.GoImportPath(options.GetModName()+"/invoker/http/common"))
 	imports = append(imports, common.GoKitEndpoint)
 	imports = append(imports, common.JSONPackage)
 	return imports

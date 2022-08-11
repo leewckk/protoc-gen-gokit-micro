@@ -47,7 +47,8 @@ func EndpointName(service, method string) string {
 func (this *Endpoints) generate(gfile *protogen.GeneratedFile, file *protogen.File, svc *protogen.Service, packageName string, options *common.Options) error {
 
 	serviceName := svc.GoName
-	transportCommonImport := common.GetPackagePath("invoker/http", "common", options)
+	// transportCommonImport := common.GetPackagePath("invoker/http", "common", options)
+	transportCommonImport := common.GokitServiceEndpointHttp
 
 	gfile.P()
 	for _, method := range svc.Methods {
@@ -56,7 +57,7 @@ func (this *Endpoints) generate(gfile *protogen.GeneratedFile, file *protogen.Fi
 		encRequestName := GetEncodeRequestName(serviceName, method.GoName)
 		decResponseName := GetDecodeResponseName(serviceName, method.GoName)
 
-		gfile.P("func ", endpointName, "(serverName string) endpoint.Endpoint{")
+		gfile.P("func ", endpointName, "(serverName string, client ", common.GoKitSDConsulPackage.Ident("Client"), " , opts ...", common.GoKitHTTP.Ident("ClientOption"), ") endpoint.Endpoint{")
 		gfile.P("enc := ", (encRequestName))
 		gfile.P("dec := ", (decResponseName))
 
@@ -75,7 +76,7 @@ func (this *Endpoints) generate(gfile *protogen.GeneratedFile, file *protogen.Fi
 			}
 		}
 
-		gfile.P("return ", transportCommonImport.Ident("MakeClientEndpoint"), "(serverName, httpMethod, api, enc, dec)")
+		gfile.P("return ", transportCommonImport.Ident("MakeClientEndpoint"), "(client, serverName, httpMethod, api, enc, dec, opts...)")
 		gfile.P("}")
 	}
 	gfile.P()

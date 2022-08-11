@@ -60,6 +60,8 @@ var (
 	GokitServiceDiscovery     = protogen.GoImportPath("github.com/leewckk/go-kit-micro-service/discovery")
 	GokitServiceMiddlewares   = protogen.GoImportPath("github.com/leewckk/go-kit-micro-service/middlewares")
 	GokitServiceRateLimit     = protogen.GoImportPath("github.com/leewckk/go-kit-micro-service/middlewares/endpoint/ratelimit")
+	GokitServiceEndpointGrpc  = protogen.GoImportPath("github.com/leewckk/go-kit-micro-service/middlewares/endpoint/grpc")
+	GokitServiceEndpointHttp  = protogen.GoImportPath("github.com/leewckk/go-kit-micro-service/middlewares/endpoint/http")
 	GokitServiceTracingGin    = protogen.GoImportPath("github.com/leewckk/go-kit-micro-service/middlewares/tracing/gin")
 	GokitServiceTracingReport = protogen.GoImportPath("github.com/leewckk/go-kit-micro-service/middlewares/tracing/report")
 	GokitServiceTransportHttp = protogen.GoImportPath("github.com/leewckk/go-kit-micro-service/middlewares/transport/http")

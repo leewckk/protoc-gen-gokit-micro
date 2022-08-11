@@ -49,11 +49,13 @@ func GetDecodeResponseName(serviceName, methodName string) string {
 }
 
 func CommonImporPath(options *common.Options) protogen.GoImportPath {
-	return protogen.GoImportPath(options.GetModName() + "/transport/gin/common")
+	return common.GokitServiceTransportHttp
+	// return protogen.GoImportPath(options.GetModName() + "/transport/gin/common")
 }
 
 func GinHttpMiddlewareImportPath(options *common.Options) protogen.GoImportPath {
-	return protogen.GoImportPath(options.GetModName() + "/middlewares/transport/http/gin")
+	return common.GokitServiceTransportHttp
+	// return protogen.GoImportPath(options.GetModName() + "/middlewares/transport/http/gin")
 }
 
 func (this *Codes) userStartBlock(serviceName string, methodName string) string {
@@ -91,7 +93,7 @@ func (this *Codes) generateEncodeRequest(fileUri string, file *protogen.File, gf
             pattern := req.URL.Path
             pattern = `, GinHttpMiddlewareImportPath(options).Ident("MarshalPattern"), `(pattern, request)
             req.URL.Path = pattern`)
-			gfile.P("return ", CommonImporPath(options).Ident("EncodeJSONRequest"), "(ctx, req, request)")
+			gfile.P("return ", common.GokitServiceTransportHttp.Ident("EncodeJSONRequest"), "(ctx, req, request)")
 
 		} else {
 			gfile.P(userblock)
