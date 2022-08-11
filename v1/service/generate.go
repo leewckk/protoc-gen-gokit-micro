@@ -24,8 +24,6 @@
 package service
 
 import (
-	"log"
-
 	"github.com/leewckk/protoc-gen-gokit-micro/common"
 
 	"google.golang.org/protobuf/compiler/protogen"
@@ -46,7 +44,7 @@ func NewGenerator() *Generate {
 	g.generators = append(g.generators, NewImplement())
 	g.generators = append(g.generators, NewInterface())
 	g.generators = append(g.generators, NewProtocol())
-	log.Printf("create service generator, output path: %v", __subPath__)
+	// log.Printf("create service generator, output path: %v", __subPath__)
 	return g
 }
 

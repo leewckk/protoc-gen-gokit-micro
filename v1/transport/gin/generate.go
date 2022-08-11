@@ -25,7 +25,6 @@
 package gin
 
 import (
-	"log"
 	"strings"
 
 	"github.com/leewckk/protoc-gen-gokit-micro/common"
@@ -49,6 +48,7 @@ func NewGenerator() *Generate {
 		generators: make([]Generator, 0, 0),
 	}
 	g.generators = append(g.generators, NewPrototype())
+	g.generators = append(g.generators, NewRegister())
 	g.generators = append(g.generators, NewCreaterFunc())
 	g.generators = append(g.generators, NewImplement())
 	g.generators = append(g.generators, NewCodes())
@@ -59,7 +59,7 @@ func (this *Generate) ImportPaths(gfile *protogen.GeneratedFile) *protogen.Gener
 
 	gfile.QualifiedGoIdent(common.FmtPackage.Ident(""))
 	gfile.QualifiedGoIdent(common.HttpPackage.Ident(""))
-	log.Printf("create transport gin generator, output path: %v", __subPath__)
+	// log.Printf("create transport gin generator, output path: %v", __subPath__)
 	return gfile
 }
 

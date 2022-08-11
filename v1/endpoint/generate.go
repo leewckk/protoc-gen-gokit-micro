@@ -24,8 +24,6 @@
 package endpoint
 
 import (
-	"log"
-
 	"github.com/leewckk/protoc-gen-gokit-micro/common"
 	"google.golang.org/protobuf/compiler/protogen"
 )
@@ -49,7 +47,7 @@ func NewGenerator() *Generate {
 	g.generators = append(g.generators, NewProtocol())
 	g.generators = append(g.generators, NewPrototype())
 	g.generators = append(g.generators, NewEndpoints())
-	log.Printf("create endpoint generator, output path: %v", __subPath__)
+	// log.Printf("create endpoint generator, output path: %v", __subPath__)
 	return g
 }
 

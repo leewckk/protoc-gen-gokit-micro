@@ -23,8 +23,6 @@
 package grpc
 
 import (
-	"log"
-
 	"github.com/leewckk/protoc-gen-gokit-micro/common"
 	"google.golang.org/protobuf/compiler/protogen"
 )
@@ -47,7 +45,7 @@ func NewGenerator(gen *protogen.Plugin) *Generate {
 	}
 	g.generators = append(g.generators, NewCodes(gen))
 	g.generators = append(g.generators, NewEndpoints())
-	log.Printf("create grpc client generator, output path: %v", __subPath__)
+	// log.Printf("create grpc client generator, output path: %v", __subPath__)
 	return g
 }
 

@@ -26,7 +26,6 @@ package http
 
 import (
 	"fmt"
-	"log"
 	"strings"
 
 	"github.com/leewckk/protoc-gen-gokit-micro/common"
@@ -53,7 +52,7 @@ func NewGenerator() *Generate {
 	g.generators = append(g.generators, NewCreaterFunc())
 	g.generators = append(g.generators, NewImplement())
 	g.generators = append(g.generators, NewCodes())
-	log.Printf("create transport http generator, output path: %v", __subPath__)
+	// log.Printf("create transport http generator, output path: %v", __subPath__)
 	return g
 }
 

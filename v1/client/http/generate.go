@@ -24,7 +24,6 @@ package http
 
 import (
 	"fmt"
-	"log"
 
 	"github.com/leewckk/protoc-gen-gokit-micro/common"
 	"google.golang.org/protobuf/compiler/protogen"
@@ -50,7 +49,7 @@ func NewGenerator() *Generate {
 	g.generators = append(g.generators, NewCodes())
 	g.generators = append(g.generators, NewEndpoints())
 
-	log.Printf("create http client generator, output path: %v", __subPath__)
+	// log.Printf("create http client generator, output path: %v", __subPath__)
 	return g
 }
 

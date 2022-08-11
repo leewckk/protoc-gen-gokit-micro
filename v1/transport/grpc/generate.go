@@ -23,7 +23,6 @@
 package grpc
 
 import (
-	"log"
 	"strings"
 
 	"github.com/leewckk/protoc-gen-gokit-micro/common"
@@ -47,10 +46,11 @@ func NewGenerator(plugin *protogen.Plugin) *Generate {
 		generators: make([]Generator, 0, 0),
 	}
 	g.generators = append(g.generators, NewPrototype())
+	g.generators = append(g.generators, NewRegister())
 	g.generators = append(g.generators, NewCreaterFunc())
 	g.generators = append(g.generators, NewImplement())
 	g.generators = append(g.generators, NewCodes(plugin))
-	log.Printf("create transport grpc generator, output path: %v", __subPath__)
+	// log.Printf("create transport grpc generator, output path: %v", __subPath__)
 	return g
 }
 

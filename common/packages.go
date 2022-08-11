@@ -65,6 +65,8 @@ var (
 	GokitServiceTransportHttp = protogen.GoImportPath("github.com/leewckk/go-kit-micro-service/middlewares/transport/http")
 	GokitServiceGORMStd       = protogen.GoImportPath("github.com/leewckk/go-kit-micro-service/orm/gorm")
 	GokitServiceUtils         = protogen.GoImportPath("github.com/leewckk/go-kit-micro-service/utils")
+	GokitServiceRouteHTTP     = protogen.GoImportPath("github.com/leewckk/go-kit-micro-service/router/http")
+	GokitServiceRouteGRPC     = protogen.GoImportPath("github.com/leewckk/go-kit-micro-service/router/grpc")
 )
 
 /// FOR GIN
