@@ -53,13 +53,13 @@ func (this *Endpoints) generate(gfile *protogen.GeneratedFile, file *protogen.Fi
 		encRequestName := GetEncodeRequestName(serviceName, method.GoName)
 		decResponseName := GetDecodeResponseName(serviceName, method.GoName)
 
-		gfile.P("func ", endpointName, "(serverName string) endpoint.Endpoint{")
+		gfile.P("func ", endpointName, "(serverName string, ", " client ", common.GoKitSDConsulPackage.Ident("Client"), " , opts... ", common.GoKitGRPC.Ident("ClientOption"), ") endpoint.Endpoint{")
 		gfile.P("var reply ", pbImort.Ident(method.Output.GoIdent.GoName))
 		gfile.P("enc := ", (encRequestName))
 		gfile.P("dec := ", (decResponseName))
 		gfile.P("serviceName := \"", file.GoPackageName, ".", svc.GoName, "\"")
 		gfile.P("methodName := \"", method.GoName, "\"")
-		gfile.P("return common.MakeClientEndpoint(serverName, serviceName, methodName, enc, dec, &reply)")
+		gfile.P("return ", common.GokitServiceEndpointGrpc.Ident("MakeClientEndpoint"), "(client, serverName, serviceName, methodName, enc, dec, &reply, opts...)")
 		gfile.P("}")
 	}
 	gfile.P()

@@ -30,7 +30,7 @@ import (
 func GetAllInportPath(options *common.Options) []protogen.GoImportPath {
 	imports := make([]protogen.GoImportPath, 0, 0)
 
-	imports = append(imports, protogen.GoImportPath(options.GetModName()+"/invoker/grpc/common"))
+	// imports = append(imports, protogen.GoImportPath(options.GetModName()+"/invoker/grpc/common"))
 	imports = append(imports, common.GoKitEndpoint)
 	return imports
 }
