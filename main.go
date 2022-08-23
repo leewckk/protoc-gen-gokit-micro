@@ -26,11 +26,29 @@ package main
 
 import (
 	"flag"
+	"fmt"
+	"os"
 
 	"github.com/leewckk/protoc-gen-gokit-micro/common"
 	"google.golang.org/protobuf/cmd/protoc-gen-go/internal_gengo"
 	"google.golang.org/protobuf/compiler/protogen"
 )
+
+func init() {
+
+	version := flag.Bool("version", false, "display version")
+	flag.Parse()
+
+	if *version == true {
+		vers := FullVersion()
+		for _, v := range vers {
+			fmt.Println(v)
+
+		}
+		os.Exit(0)
+
+	}
+}
 
 func main() {
 
