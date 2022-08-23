@@ -55,7 +55,7 @@ func (this *Endpoints) generate(gfile *protogen.GeneratedFile, file *protogen.Fi
 
 		gfile.P("func ", endpointName, "(serverName string, ", " client ", common.GoKitSDConsulPackage.Ident("Client"), " , opts... ", common.GoKitGRPC.Ident("ClientOption"), ") endpoint.Endpoint{")
 		// gfile.P("var reply ", pbImort.Ident(method.Output.GoIdent.GoName))
-		gfile.P("replyMaker := func()interface{}{i return new(", pbImort.Ident(method.Output.GoIdent.GoName), ")}")
+		gfile.P("replyMaker := func()interface{}{ return new(", pbImort.Ident(method.Output.GoIdent.GoName), ")}")
 		gfile.P("enc := ", (encRequestName))
 		gfile.P("dec := ", (decResponseName))
 		gfile.P("serviceName := \"", file.GoPackageName, ".", svc.GoName, "\"")
