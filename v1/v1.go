@@ -49,13 +49,16 @@ func NewGenerator(plugin *protogen.Plugin, options common.Options) *GeneratorV1 
 	}
 
 	if *options.TypeName == common.GENERATE_TYPE_NAME_CLIENT {
-		g.generators = append(g.generators, clientgrpc.NewGenerator(plugin))
+		if options.EnableGrpc {
+			g.generators = append(g.generators, clientgrpc.NewGenerator(plugin))
+		}
 		g.generators = append(g.generators, clientgin.NewGenerator())
 		g.generators = append(g.generators, clientproto.NewGenerator())
 	} else if *options.TypeName == common.GENERATE_TYPE_NAME_SERVER {
-		// g.generators = append(g.generators, service.NewGenerator())
+		if options.EnableGrpc {
+			g.generators = append(g.generators, grpc.NewGenerator(plugin))
+		}
 		g.generators = append(g.generators, endpoint.NewGenerator())
-		g.generators = append(g.generators, grpc.NewGenerator(plugin))
 		g.generators = append(g.generators, gin.NewGenerator())
 	} else {
 		panic(fmt.Sprintf("unsuported generate type: %v", options.TypeName))

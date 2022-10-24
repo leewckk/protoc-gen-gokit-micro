@@ -31,9 +31,10 @@ import (
 )
 
 type Options struct {
-	ModName  *string `json:"modName"`
-	TypeName *string `json:"typeName"`
-	Cfg      *Configure
+	ModName    *string `json:"modName"`
+	TypeName   *string `json:"typeName"`
+	EnableGrpc bool    `json:"enableGrpc"`
+	Cfg        *Configure
 }
 
 const (

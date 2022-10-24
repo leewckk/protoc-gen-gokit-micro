@@ -44,6 +44,8 @@ func init() {
 	__fieldTypeDict__["sfixed64"] = "int64"
 	__fieldTypeDict__["float"] = "float32"
 	__fieldTypeDict__["float"] = "float32"
+	__fieldTypeDict__["anytype"] = "interface{}"
+	__fieldTypeDict__["AnyType"] = "interface{}"
 
 }
 
@@ -114,6 +116,12 @@ func GenFieldType(field *protogen.Field) string {
 	}
 
 	if field.Message != nil {
+		goname := field.Message.GoIdent.GoName
+		if v, ok := __fieldTypeDict__[goname]; ok {
+			// return fieldTypePrefix(field) + v
+			return v
+		}
+		// log.Printf("create transport grpc generator, output path: %v", __subPath__)
 		return fieldTypePrefix(field) + field.Message.GoIdent.GoName
 	}
 

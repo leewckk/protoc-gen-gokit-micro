@@ -55,6 +55,7 @@ func main() {
 	var fs flag.FlagSet
 	typeName := fs.String("gentype", "server", "server / client mode")
 	modName := fs.String("mod", "unknown", "project mod name")
+	enableGrpc := fs.Bool("enable_grpc", false, "enable grpc supoort")
 
 	opts := &protogen.Options{
 		ParamFunc: fs.Set,
@@ -62,9 +63,10 @@ func main() {
 	opts.Run(func(p *protogen.Plugin) error {
 
 		options := common.Options{
-			ModName:  modName,
-			TypeName: typeName,
-			Cfg:      common.DefaultConfig(),
+			ModName:    modName,
+			TypeName:   typeName,
+			EnableGrpc: *enableGrpc,
+			Cfg:        common.DefaultConfig(),
 		}
 		generator := NewGenerator(p, options)
 		for _, f := range p.Files {
