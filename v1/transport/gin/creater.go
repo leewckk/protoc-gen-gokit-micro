@@ -63,6 +63,11 @@ func (this *CreaterFunc) GenerateFile(fileUri string, gen *protogen.Plugin, file
 		encName := GetEncodeResponseName(svc.GoName, method.GoName)
 
 		if opt, ok := method.Desc.Options().(*descriptorpb.MethodOptions); ok {
+
+			// if kitopt, ok := proto.GetExtension(opt, kitoptions.E_EnableAuth).(bool); ok {
+			// 	log.Printf("method: %v, option: %+v\r\n", method.GoName, kitopt)
+			// }
+
 			if rule, ok := proto.GetExtension(opt, annotations.E_Http).(*annotations.HttpRule); ok {
 
 				out := func(methodName, pattern string) {

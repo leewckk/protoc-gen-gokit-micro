@@ -19,13 +19,14 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-//
-//
 package endpoint
 
 import (
+	"github.com/leewckk/gokit-micro-options/kitoptions"
 	"github.com/leewckk/protoc-gen-gokit-micro/common"
 	"google.golang.org/protobuf/compiler/protogen"
+	"google.golang.org/protobuf/proto"
+	"google.golang.org/protobuf/types/descriptorpb"
 )
 
 type Endpoints struct {
@@ -51,7 +52,8 @@ func (this *Endpoints) generate(gfile *protogen.GeneratedFile, svc *protogen.Ser
 		endpointName := EndpointName(serviceName, method.GoName)
 		gfile.P("func ", endpointName,
 			" () ", common.GoKitEndpoint.Ident("Endpoint"), "{")
-		gfile.P("return ", MiddleWareImporPath(options).Ident(""), "InjectMiddleWares(func(ctx ", common.ContextPackage.Ident("Context"), " , request interface{}) (interface{} , error){")
+		/// FUNCTION BODY
+		gfile.P("ep :=", MiddleWareImporPath(options).Ident(""), "InjectMiddleWares(func(ctx ", common.ContextPackage.Ident("Context"), " , request interface{}) (interface{} , error){")
 
 		gfile.P("if r, ok := request.(*", common.GenMessageName(method.Input), ");ok {")
 		gfile.P("return ", PrototypeProcName(svc, method), "(ctx, r)")
@@ -59,6 +61,20 @@ func (this *Endpoints) generate(gfile *protogen.GeneratedFile, svc *protogen.Ser
 
 		gfile.P("return nil, ", common.FmtPackage.Ident("Errorf"), `("Error convert interface : %v", `, common.ReflectPackage.Ident(""), "TypeOf(request))")
 		gfile.P("})")
+
+		if methodOpt, ok := method.Desc.Options().(*descriptorpb.MethodOptions); ok {
+			if kitopt, ok := proto.GetExtension(methodOpt, kitoptions.E_Middlewares).([]string); ok {
+				if len(kitopt) > 0 {
+					gfile.P("ep =", MiddleWareImporPath(options).Ident(""), "InjectOptionalMiddlewares(ep , []string{")
+					for _, name := range kitopt {
+						gfile.P(`"` + name + `",`)
+					}
+					gfile.P("})")
+				}
+			}
+		}
+		gfile.P("return ep")
+		/// FUNCTION BODY -- END --
 		gfile.P("}")
 	}
 
